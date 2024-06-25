@@ -20,6 +20,7 @@ import EventDetails from './EventDetails'
 import EditEvent from './EditEvent'
 import RsvpEventList from './RsvpEventList'
 import CompletedEvents from './CompletedEvents';
+import EventDisplay from './EventDisplay';
 const Stack = createStackNavigator();
 
 const NavigationStack = () => {
@@ -73,6 +74,12 @@ const NavigationStack = () => {
           name="EventDetails"
           component={EventDetails}
           options={{ title: 'EventDetails' }}
+        />
+
+        <Stack.Screen
+          name="EventDisplay"
+          component={EventDisplay}
+          options={{ title: 'EventDisplay' }}
         />
 
         <Stack.Screen

@@ -198,6 +198,7 @@ import {
 import { useTheme } from './ThemeContext';
 import SidebarIcon from './SidebarIcon';
 import { UserContext } from './UserContext';
+import UpcomingEvents from './Upcoming/UpcomingEvents';
 const Home = ({ navigation, route }) => {
   const [userInfo, setUserInfo] = useState(null);
   const { isDarkMode } = useTheme();
@@ -258,6 +259,22 @@ const Home = ({ navigation, route }) => {
   const handleCompleteEvents = () => {
     navigation.navigate('CompletedEvents', {user : userInfo});
   };
+
+  const handleCardPress1 = () => {
+    navigation.navigate('EventDisplay', { user: userInfo });
+  };
+
+  const handleCardPress2 = () => {
+    navigation.navigate('EventList', { user: userInfo });
+  };
+
+  const handleCardPress3 = () => {
+    navigation.navigate('RsvpEventList', { user: userInfo });
+  };
+
+  const handleCardPress4 = () => {
+    navigation.navigate('CompletedEvents', { user: userInfo });
+  };
   const userPhoto = require('../assets/man-face.jpg');
 
   return (
@@ -306,58 +323,62 @@ const Home = ({ navigation, route }) => {
         
           <Image source={require('../assets/home.jpg')} style={styles.image} />
         </View> */}
-
+<View style={styles.eventcontainer}>
+      {/* Other components */}
+      <UpcomingEvents email={userInfo ? userInfo.email_user : null} />
+      {/* Other components */}
+    </View>
 <View style={styles.cardsContainer}>
             <View style={styles.row}>
               <TouchableOpacity
                 style={styles.card}
-                onPress={() => handleCardPress('Component1')}>
+                onPress={() => handleCardPress1('EventDisplay')}>
                 <Image
-                  source={require('../assets/image/cardbg.jpg')}
-                  style={styles.cardImage}
+                  source={isDarkMode ? require('../assets/image/cards/5.jpg') : require('../assets/image/cards/6.jpg')}
+                  style={styles.card}
                 />
-                <Text style={styles.cardText}>Component 1</Text>
+                {/* <Text style={styles.cardText}>Component 1</Text> */}
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.card}
-                onPress={() => handleCardPress('Component2')}>
+                onPress={() => handleCardPress2('EventList')}>
                 <Image
-                  source={require('../assets/image/cardbg.jpg')}
-                  style={styles.cardImage}
+                  source={isDarkMode ? require('../assets/image/cards/11.jpg') : require('../assets/image/cards/12.jpg')}
+                  style={styles.card}
                 />
-                <Text style={styles.cardText}>Component 2</Text>
+                {/* <Text style={styles.cardText}>Component 2</Text> */}
               </TouchableOpacity>
             </View>
             <View style={styles.row}>
               <TouchableOpacity
                 style={styles.card}
-                onPress={() => handleCardPress('Component3')}>
+                onPress={() => handleCardPress3('RsvpEventList')}>
                 <Image
-                  source={require('../assets/image/cardbg.jpg')}
-                  style={styles.cardImage}
+                  source={isDarkMode ? require('../assets/image/cards/7.jpg') : require('../assets/image/cards/8.jpg')}
+                  style={styles.card}
                 />
-                <Text style={styles.cardText}>Component 3</Text>
+                {/* <Text style={styles.cardText}>Component 3</Text> */}
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.card}
-                onPress={() => handleCardPress('Component4')}>
+                onPress={() => handleCardPress4('CompletedEvents')}>
                 <Image
-                  source={require('../assets/image/cardbg.jpg')}
-                  style={styles.cardImage}
+                  source={isDarkMode ? require('../assets/image/cards/9.jpg') : require('../assets/image/cards/10.jpg')}
+                  style={styles.card}
                 />
-                <Text style={styles.cardText}>Component 4</Text>
+                {/* <Text style={styles.cardText}>Component 4</Text> */}
               </TouchableOpacity>
             </View>
           </View>
         <TouchableOpacity style={styles.uploadButton} onPress={handleTryNow}>
-          <Text style={styles.buttonText}>Create Event</Text>
+          <Text style={styles.buttonText}>Create a New Event</Text>
         </TouchableOpacity>
 
         <View style={styles.infoContainer}>
-          <Text
+          {/* <Text
             style={[styles.infoTitle, { color: isDarkMode ? '#fff' : '#000' }]}>
             Tumor Classification Information
-          </Text>
+          </Text> */}
           {/* <Text
             style={[styles.infoText, { color: isDarkMode ? '#ccc' : '#000' }]}>
             Welcome to our comprehensive tumor classification app, designed to
@@ -368,23 +389,23 @@ const Home = ({ navigation, route }) => {
             complexities of oncology, this app aims to serve as your go-to
             resource for tumor classification.
           </Text> */}
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={styles.uploadDetailsButton}
             onPress={handleTumorDetails}>
             <Text style={styles.buttonDetailsText}>Event Details</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={styles.uploadDetailsButton}
             onPress={handleRsvpEvents}>
             <Text style={styles.buttonDetailsText}>View RSVPed Events</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={styles.uploadDetailsButton}
             onPress={handleCompleteEvents}>
             <Text style={styles.buttonDetailsText}>View Completed Events</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           {/* <Image
             source={require('../assets/chart.jpeg')}
             style={styles.image}
@@ -410,6 +431,7 @@ const Home = ({ navigation, route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    
   },
   contentContainer: {
     alignItems: 'center',
@@ -426,9 +448,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'green',
     paddingVertical: 12,
     paddingHorizontal: 30,
-    borderRadius: 5,
+    borderRadius: 20,
     marginBottom: 20,
     marginTop: 10,
+    marginLeft: 0,
   },
   uploadDetailsButton: {
     backgroundColor: 'pink',
@@ -437,6 +460,11 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginBottom: 20,
     marginTop: 10,
+  },
+  eventcontainer: {
+    // flex: 1,
+    padding: 10,
+    borderRadius: 5,
   },
   buttonText: {
     color: '#fff',
@@ -501,7 +529,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   card: {
-    backgroundColor: '#702963',
+    // backgroundColor: '#702963',
     borderRadius: 10,
     padding: 15,
     alignItems: 'center',
@@ -512,7 +540,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     elevation: 5,
     marginHorizontal: 5,
-    height: 180,
+    height: 150,
   },
   cardImage: {
     width: 150,
@@ -526,7 +554,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   backgroundImage: {
-    flex: 1,
+    // flex: 1,
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
