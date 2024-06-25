@@ -12,7 +12,7 @@ import SignUp from './components/Login/SignUp';
 import EntryLoginPage from './components/Login/EntryLoginPage';
 import Navigation from './Navigation/Navigation';
 import NavigationStack from './components/NavigationStack';
-
+import {ThemeProvider} from './components/ThemeContext';
 
 
 const Stack = createStackNavigator();
@@ -25,6 +25,7 @@ export default function App() {
   };
 
   return (
+    <ThemeProvider>
      <NavigationContainer>
      
             <Header />
@@ -35,6 +36,7 @@ export default function App() {
            
          
     </NavigationContainer>
+    </ThemeProvider>
   );
 }
 

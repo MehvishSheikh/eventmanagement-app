@@ -1,71 +1,80 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useTheme } from './ThemeContext';
 
-const Sidebar = ({ navigation}) => {
- 
-  const handleDetails = () => {
-    navigation.navigate('TumorList'); 
-  };
+const Sidebar = ({ navigation }) => {
+  const { isDarkMode, toggleTheme } = useTheme();
 
   return (
-    <View style={styles.container}>
-      <View style={styles.sidebar}>
-        <TouchableOpacity style={styles.option}  onPress={() => navigation.navigate('Home')}>
-          <Ionicons name="person-circle-outline" size={24} color="black" />
-          <Text style={styles.optionText}>Home</Text>
+    <View style={[styles.container, { backgroundColor: isDarkMode ? '#333' : '#fff' }]}>
+      <ScrollView contentContainerStyle={styles.scrollViewContent}>
+        <TouchableOpacity style={styles.option} onPress={() => navigation.navigate('Home')}>
+          <Ionicons name="home-outline" size={24} color={isDarkMode ? '#fff' : '#000'} />
+          <Text style={[styles.optionText, { color: isDarkMode ? '#fff' : '#000' }]}>Home</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.option}  onPress={() => navigation.navigate('Notifications')}>
-          <Ionicons name="notifications-outline" size={24} color="black" />
-          <Text style={styles.optionText}>Notifications</Text>
-        </TouchableOpacity >
+        <TouchableOpacity style={styles.option} onPress={() => navigation.navigate('Notifications')}>
+          <Ionicons name="notifications-outline" size={24} color={isDarkMode ? '#fff' : '#000'} />
+          <Text style={[styles.optionText, { color: isDarkMode ? '#fff' : '#000' }]}>Notifications</Text>
+        </TouchableOpacity>
         <TouchableOpacity style={styles.option} onPress={() => navigation.navigate('Ecolense')}>
-          <Ionicons name="eye-outline" size={24} color="black" />
-          <Text style={styles.optionText}>Ecolens</Text>
+          <Ionicons name="eye-outline" size={24} color={isDarkMode ? '#fff' : '#000'} />
+          <Text style={[styles.optionText, { color: isDarkMode ? '#fff' : '#000' }]}>Ecolens</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.option} onPress={() => navigation.navigate('TumorList')}>
-          <Ionicons name="megaphone-outline" size={24} color="black" />
-          <Text style={styles.optionText}>Tumor Classes</Text>
+          <Ionicons name="list-outline" size={24} color={isDarkMode ? '#fff' : '#000'} />
+          <Text style={[styles.optionText, { color: isDarkMode ? '#fff' : '#000' }]}>Tumor Classes</Text>
         </TouchableOpacity>
-         <TouchableOpacity style={styles.option} onPress={() => navigation.navigate('Campaigns')}>
-          <Ionicons name="megaphone-outline" size={24} color="black" />
-          <Text style={styles.optionText}>Campaigns</Text>
+        <TouchableOpacity style={styles.option} onPress={() => navigation.navigate('Campaigns')}>
+          <Ionicons name="megaphone-outline" size={24} color={isDarkMode ? '#fff' : '#000'} />
+          <Text style={[styles.optionText, { color: isDarkMode ? '#fff' : '#000' }]}>Campaigns</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.closeButton} onPress={() => navigation.navigate('Home')}>
-          <Ionicons name="close-outline" size={24} color="black" />
+        <TouchableOpacity style={styles.option} onPress={() => navigation.navigate('Settings')}>
+          <Ionicons name="settings-outline" size={24} color={isDarkMode ? '#fff' : '#000'} />
+          <Text style={[styles.optionText, { color: isDarkMode ? '#fff' : '#000' }]}>Settings</Text>
         </TouchableOpacity>
-      </View>
+        <TouchableOpacity style={styles.option} onPress={toggleTheme}>
+          <Ionicons name={isDarkMode ? "sunny-outline" : "moon-outline"} size={24} color={isDarkMode ? '#fff' : '#000'} />
+          <Text style={[styles.optionText, { color: isDarkMode ? '#fff' : '#000' }]}>
+            {isDarkMode ? 'Light Mode' : 'Dark Mode'}
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.option} onPress={() => navigation.navigate('EntryLoginPage')}>
+          <Ionicons name="log-out-outline" size={24} color={isDarkMode ? '#fff' : '#000'} />
+          <Text style={[styles.optionText, { color: isDarkMode ? '#fff' : '#000' }]}>Log Out</Text>
+        </TouchableOpacity>
+      </ScrollView>
+      <TouchableOpacity style={styles.closeButton} onPress={() => navigation.navigate('Home')}>
+        <Ionicons name="close-outline" size={24} color={isDarkMode ? '#fff' : '#000'} />
+      </TouchableOpacity>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    position: 'relative',
-    top: 0,
-    left: 0,
-    bottom: 0,
-    width: '100%', // Make the container full width
-    flexDirection: 'row', // Arrange items horizontally
+    flex: 1,
+    width: '70%',
   },
-  sidebar: {
-    flex: 1, // Take remaining space
-    backgroundColor: 'white',
-    paddingTop: 10,
+  scrollViewContent: {
+    paddingVertical: 40,
     paddingHorizontal: 20,
-  },
-  closeButton: {
-    alignSelf: 'flex-end',
-    padding: 10,
   },
   option: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 10,
+    paddingVertical: 15,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: '#ccc',
   },
   optionText: {
-    marginLeft: 10,
-    fontSize: 16,
+    marginLeft: 15,
+    fontSize: 18,
+    fontWeight: '500',
+  },
+  closeButton: {
+    alignSelf: 'flex-end',
+    padding: 20,
   },
 });
 

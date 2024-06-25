@@ -1,67 +1,73 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import axios from 'axios';
+import { useTheme } from '../ThemeContext'; 
 
 const Login = ({ navigation }) => {
+  const { isDarkMode } = useTheme(); 
   const [user_name, setUsername] = useState('');
   const [user_password, setPassword] = useState('');
   const [error, setError] = useState('');
 
   const handleLogin = async () => {
     try {
-      // Send POST request to server to authenticate user
+     
       const response = await axios.post('https://tumor-app-server.vercel.app/api/login', {
         user_name,
         user_password
       });
 
-      // If authentication successful, navigate to home page
+      
       if (response.data.success) {
         navigation.navigate('Home', { user: response.data });
       } else {
-        // If authentication failed, display error message
+        
         setError('Invalid username or password');
       }
     } catch (error) {
-      // If an error occurs during login, display error message
+   
       console.error('Error logging in:', error);
       setError('An error occurred while logging in');
     }
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Login</Text>
+    <ScrollView contentContainerStyle={[styles.container, { backgroundColor: isDarkMode ? '#333' : '#fff' }]}>
+      <Text style={[styles.title, { color: isDarkMode ? '#fff' : '#000' }]}> User Login</Text>
       {error ? <Text style={styles.error}>{error}</Text> : null}
       <TextInput
-        style={styles.input}
+        style={[styles.input, { color: isDarkMode ? '#fff' : '#000', backgroundColor: isDarkMode ? '#555' : '#ddd', borderColor: isDarkMode ? '#777' : 'gray' }]}
         placeholder="Username"
+        placeholderTextColor={isDarkMode ? '#aaa' : 'gray'}
         value={user_name}
         onChangeText={setUsername}
       />
       <TextInput
-        style={styles.input}
+        style={[styles.input, { color: isDarkMode ? '#fff' : '#000', backgroundColor: isDarkMode ? '#555' : '#ddd', borderColor: isDarkMode ? '#777' : 'gray' }]}
         placeholder="Password"
         secureTextEntry
+        placeholderTextColor={isDarkMode ? '#aaa' : 'gray'}
         value={user_password}
         onChangeText={setPassword}
       />
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
+      <TouchableOpacity style={[styles.button, { backgroundColor: isDarkMode ? '#702963' : '#5353c6' }]} onPress={handleLogin}>
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-        <Text style={styles.link}>Don't have an account? Sign Up</Text>
+        <Text style={[styles.link, { color: isDarkMode ? '#66b3ff' : 'blue' }]}>Don't have an account? Sign Up</Text>
       </TouchableOpacity>
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
+    flexGrow: 1,
+    // justifyContent: 'center',
+    paddingTop: 100,
     alignItems: 'center',
     paddingHorizontal: 50,
+    paddingVertical: 20,
     width: '100%',
   },
   title: {
@@ -73,7 +79,6 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 40,
     borderWidth: 1,
-    borderColor: 'gray',
     borderRadius: 5,
     paddingHorizontal: 10,
     marginBottom: 10,
@@ -81,7 +86,6 @@ const styles = StyleSheet.create({
   button: {
     width: '100%',
     height: 40,
-    backgroundColor: '#007bff',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 5,
@@ -92,7 +96,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   link: {
-    color: 'blue',
     marginTop: 10,
   },
   error: {

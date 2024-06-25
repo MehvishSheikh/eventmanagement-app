@@ -2,69 +2,72 @@ import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { ProgressBar } from 'react-native-paper';
+import { useTheme } from './ThemeContext'; // Assuming you have a ThemeContext for dark mode
 
 const Campaigns = () => {
+  const { isDarkMode } = useTheme(); // Using isDarkMode from the context
+
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Campaigns</Text>
+    <ScrollView contentContainerStyle={[styles.container, { backgroundColor: isDarkMode ? '#333' : '#fff' }]}>
+      <Text style={[styles.title, { color: isDarkMode ? '#fff' : '#000' }]}>Campaigns</Text>
 
       {/* Campaign 1 */}
-      <View style={[styles.campaignContainer, styles.campaign1]}>
+      <View style={[styles.campaignContainer, { backgroundColor: isDarkMode ? '#1a1a1a' : '#E5F0FF' }]}>
         <View style={styles.campaignHeader}>
           <Ionicons name="megaphone-outline" size={24} color="#007AFF" />
-          <Text style={styles.campaignHeaderText}>Breast Cancer Awareness Campaign</Text>
+          <Text style={[styles.campaignHeaderText, { color: isDarkMode ? '#fff' : '#000' }]}>Breast Cancer Awareness Campaign</Text>
         </View>
-        <Text style={styles.campaignText}>Date: June 15, 2024</Text>
-        <Text style={styles.campaignText}>Time: 10:00 AM - 2:00 PM</Text>
-        <Text style={styles.campaignText}>Location: Central Park</Text>
+        <Text style={[styles.campaignText, { color: isDarkMode ? '#ccc' : '#000' }]}>Date: June 15, 2024</Text>
+        <Text style={[styles.campaignText, { color: isDarkMode ? '#ccc' : '#000' }]}>Time: 10:00 AM - 2:00 PM</Text>
+        <Text style={[styles.campaignText, { color: isDarkMode ? '#ccc' : '#000' }]}>Location: Central Park</Text>
         <ProgressBar progress={0.7} color="#FF6347" style={{ marginTop: 10 }} />
       </View>
 
       {/* Campaign 2 */}
-      <View style={[styles.campaignContainer, styles.campaign2]}>
+      <View style={[styles.campaignContainer, { backgroundColor: isDarkMode ? '#1a1a1a' : '#FFF3E0' }]}>
         <View style={styles.campaignHeader}>
           <Ionicons name="megaphone-outline" size={24} color="#007AFF" />
-          <Text style={styles.campaignHeaderText}>Prostate Cancer Screening Campaign</Text>
+          <Text style={[styles.campaignHeaderText, { color: isDarkMode ? '#fff' : '#000' }]}>Prostate Cancer Screening Campaign</Text>
         </View>
-        <Text style={styles.campaignText}>Date: July 5, 2024</Text>
-        <Text style={styles.campaignText}>Time: 9:00 AM - 1:00 PM</Text>
-        <Text style={styles.campaignText}>Location: City Hall</Text>
+        <Text style={[styles.campaignText, { color: isDarkMode ? '#ccc' : '#000' }]}>Date: July 5, 2024</Text>
+        <Text style={[styles.campaignText, { color: isDarkMode ? '#ccc' : '#000' }]}>Time: 9:00 AM - 1:00 PM</Text>
+        <Text style={[styles.campaignText, { color: isDarkMode ? '#ccc' : '#000' }]}>Location: City Hall</Text>
         <ProgressBar progress={0.5} color="#FF6347" style={{ marginTop: 10 }} />
       </View>
 
       {/* Campaign 3 */}
-      <View style={[styles.campaignContainer, styles.campaign3]}>
+      <View style={[styles.campaignContainer, { backgroundColor: isDarkMode ? '#1a1a1a' : '#FFEAEA' }]}>
         <View style={styles.campaignHeader}>
           <Ionicons name="megaphone-outline" size={24} color="#007AFF" />
-          <Text style={styles.campaignHeaderText}>Lung Cancer Awareness Drive</Text>
+          <Text style={[styles.campaignHeaderText, { color: isDarkMode ? '#fff' : '#000' }]}>Lung Cancer Awareness Drive</Text>
         </View>
-        <Text style={styles.campaignText}>Date: August 20, 2024</Text>
-        <Text style={styles.campaignText}>Time: 11:00 AM - 3:00 PM</Text>
-        <Text style={styles.campaignText}>Location: Community Center</Text>
+        <Text style={[styles.campaignText, { color: isDarkMode ? '#ccc' : '#000' }]}>Date: August 20, 2024</Text>
+        <Text style={[styles.campaignText, { color: isDarkMode ? '#ccc' : '#000' }]}>Time: 11:00 AM - 3:00 PM</Text>
+        <Text style={[styles.campaignText, { color: isDarkMode ? '#ccc' : '#000' }]}>Location: Community Center</Text>
         <ProgressBar progress={0.6} color="#FF6347" style={{ marginTop: 10 }} />
       </View>
 
       {/* Campaign 4 */}
-      <View style={[styles.campaignContainer, styles.campaign4]}>
+      <View style={[styles.campaignContainer, { backgroundColor: isDarkMode ? '#1a1a1a' : '#F5E6E8' }]}>
         <View style={styles.campaignHeader}>
           <Ionicons name="megaphone-outline" size={24} color="#007AFF" />
-          <Text style={styles.campaignHeaderText}>Skin Cancer Screening Event</Text>
+          <Text style={[styles.campaignHeaderText, { color: isDarkMode ? '#fff' : '#000' }]}>Skin Cancer Screening Event</Text>
         </View>
-        <Text style={styles.campaignText}>Date: September 10, 2024</Text>
-        <Text style={styles.campaignText}>Time: 10:30 AM - 2:30 PM</Text>
-        <Text style={styles.campaignText}>Location: Riverside Park</Text>
+        <Text style={[styles.campaignText, { color: isDarkMode ? '#ccc' : '#000' }]}>Date: September 10, 2024</Text>
+        <Text style={[styles.campaignText, { color: isDarkMode ? '#ccc' : '#000' }]}>Time: 10:30 AM - 2:30 PM</Text>
+        <Text style={[styles.campaignText, { color: isDarkMode ? '#ccc' : '#000' }]}>Location: Riverside Park</Text>
         <ProgressBar progress={0.8} color="#FF6347" style={{ marginTop: 10 }} />
       </View>
 
       {/* Campaign 5 */}
-      <View style={[styles.campaignContainer, styles.campaign5]}>
+      <View style={[styles.campaignContainer, { backgroundColor: isDarkMode ? '#1a1a1a' : '#E9F7F1' }]}>
         <View style={styles.campaignHeader}>
           <Ionicons name="megaphone-outline" size={24} color="#007AFF" />
-          <Text style={styles.campaignHeaderText}>Colon Cancer Awareness Walkathon</Text>
+          <Text style={[styles.campaignHeaderText, { color: isDarkMode ? '#fff' : '#000' }]}>Colon Cancer Awareness Walkathon</Text>
         </View>
-        <Text style={styles.campaignText}>Date: October 15, 2024</Text>
-        <Text style={styles.campaignText}>Time: 8:00 AM - 12:00 PM</Text>
-        <Text style={styles.campaignText}>Location: Liberty Park</Text>
+        <Text style={[styles.campaignText, { color: isDarkMode ? '#ccc' : '#000' }]}>Date: October 15, 2024</Text>
+        <Text style={[styles.campaignText, { color: isDarkMode ? '#ccc' : '#000' }]}>Time: 8:00 AM - 12:00 PM</Text>
+        <Text style={[styles.campaignText, { color: isDarkMode ? '#ccc' : '#000' }]}>Location: Liberty Park</Text>
         <ProgressBar progress={0.9} color="#FF6347" style={{ marginTop: 10 }} />
       </View>
     </ScrollView>
@@ -74,18 +77,19 @@ const Campaigns = () => {
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    backgroundColor: '#fff',
     padding: 20,
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
+    textAlign: 'center',
+    color: '#fff', // Adjusted to match dark mode background color
   },
   campaignContainer: {
-    padding: 20,
     borderRadius: 10,
     marginBottom: 20,
+    padding: 20,
   },
   campaignHeader: {
     flexDirection: 'row',
@@ -99,21 +103,6 @@ const styles = StyleSheet.create({
   campaignText: {
     fontSize: 16,
     marginBottom: 5,
-  },
-  campaign1: {
-    backgroundColor: '#E5F0FF',
-  },
-  campaign2: {
-    backgroundColor: '#FFF3E0',
-  },
-  campaign3: {
-    backgroundColor: '#FFEAEA',
-  },
-  campaign4: {
-    backgroundColor: '#F5E6E8',
-  },
-  campaign5: {
-    backgroundColor: '#E9F7F1',
   },
 });
 
