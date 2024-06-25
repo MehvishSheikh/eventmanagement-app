@@ -570,7 +570,6 @@
 
 // export default EventList;
 
-
 import React, { useState, useEffect } from 'react';
 import { View, Text, ActivityIndicator, StyleSheet, TouchableOpacity, Modal, ScrollView } from 'react-native';
 import axios from 'axios';
@@ -615,18 +614,33 @@ const EventList = ({ route }) => {
 
   const applyFilter = () => {
     let filtered = [...events];
-
+  
+    const convertTo24Hour = (time) => {
+      const [hours, minutes] = time.split(/[: ]/);
+      const period = time.split(' ')[1];
+      let hour = parseInt(hours);
+      if (period === 'PM' && hour !== 12) hour += 12;
+      if (period === 'AM' && hour === 12) hour = 0;
+      return `${hour.toString().padStart(2, '0')}:${minutes}`;
+    };
+  
     if (filterBy === 'time') {
-      filtered.sort((a, b) => new Date(b.date + ' ' + b.time) - new Date(a.date + ' ' + a.time));
+      filtered.sort((a, b) => {
+        const dateA = new Date(`${a.date}T${convertTo24Hour(a.time)}:00`);
+        const dateB = new Date(`${b.date}T${convertTo24Hour(b.time)}:00`);
+        return dateA - dateB;
+      });
     } else if (filterBy === 'location') {
       filtered.sort((a, b) => a.location.localeCompare(b.location));
     } else if (filterBy === 'rsvp') {
       filtered = events.filter(event => event.rsvp);
     }
-
+  
     setFilteredEvents(filtered);
     setShowFilterModal(false);
   };
+  
+  
 
   const clearFilter = () => {
     setFilteredEvents(events);
