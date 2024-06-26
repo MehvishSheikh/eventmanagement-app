@@ -22,6 +22,8 @@ import RsvpEventList from './RsvpEventList'
 import CompletedEvents from './CompletedEvents';
 import EventDisplay from './EventDisplay';
 import EventMap from './Maps/EventMap';
+import EventLocationList from './EventLocationList';
+import EventEditList from './EventEditList';
 const Stack = createStackNavigator();
 
 const NavigationStack = () => {
@@ -81,6 +83,16 @@ const NavigationStack = () => {
           name="EventDisplay"
           component={EventDisplay}
           options={{ title: 'EventDisplay' }}
+        />
+        <Stack.Screen
+          name="EventLocationList"
+          component={EventLocationList}
+          options={{ title: 'EventLocationList' }}
+        />
+        <Stack.Screen
+          name="EventEditList"
+          component={EventEditList}
+          options={{ title: 'EventEditList' }}
         />
 
         <Stack.Screen

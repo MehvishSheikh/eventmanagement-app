@@ -206,33 +206,23 @@ const Home = ({ navigation, route }) => {
 
   useEffect(() => {
     if (route.params && route.params.user) {
-      const { user_name, user_password } = route.params.user;
-      fetchUserInfo(user_name, user_password);
+      const user = route.params.user;
+      fetchUserInfo(user.user_name);
     }
   }, [route.params]);
 
-  const fetchUserInfo = async (user_name, user_password) => {
+  const fetchUserInfo = async (user_name) => {
     try {
       const response = await fetch(
-        'https://tumor-app-server.vercel.app/api/login',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            user_name: user_name,
-            user_password: user_password,
-          }),
-        }
+        `https://tumor-app-server.vercel.app/api/data/username/${user_name}`
       );
-
       const data = await response.json();
-      console.log('User Info:', data);
 
-      if (data.success) {
+      if (response.ok) {
         setUserInfo(data);
-        setUser({ user_name: data.user_name }); 
+        setUser({ user_name: data.user_name });
+      } else {
+        console.error('Error fetching user info:', data.message);
       }
     } catch (error) {
       console.error('Error fetching user info:', error);
@@ -269,11 +259,11 @@ const Home = ({ navigation, route }) => {
   };
 
   const handleCardPress3 = () => {
-    navigation.navigate('RsvpEventList', { user: userInfo });
+    navigation.navigate('EventLocationList', { user: userInfo });
   };
 
   const handleCardPress4 = () => {
-    navigation.navigate('CompletedEvents', { user: userInfo });
+    navigation.navigate('EventEditList', { user: userInfo });
   };
   const userPhoto = require('../assets/man-face.jpg');
 
@@ -329,7 +319,7 @@ const Home = ({ navigation, route }) => {
       {/* Other components */}
     </View>
     <TouchableOpacity style={[styles.neweventbutton, { backgroundColor: isDarkMode ? '#702963' : '#5353c6' }]} onPress={handleTryNow}>
-          <Text style={[styles.buttonText, {color: isDarkMode ? '#000' : '#fff'  }]}>Create a New Event</Text>
+          <Text style={[styles.buttonText, {color: '#fff'  }]}>Create a New Event</Text>
         </TouchableOpacity>
 <View style={styles.cardsContainer}>
             <View style={styles.row}>
@@ -355,9 +345,9 @@ const Home = ({ navigation, route }) => {
             <View style={styles.row}>
               <TouchableOpacity
                 style={styles.card}
-                onPress={() => handleCardPress3('RsvpEventList')}>
+                onPress={() => handleCardPress3('EventLocationList')}>
                 <Image
-                  source={isDarkMode ? require('../assets/image/cards/7.jpg') : require('../assets/image/cards/8.jpg')}
+                  source={isDarkMode ? require('../assets/image/12.jpg') : require('../assets/image/13.jpg')}
                   style={styles.card}
                 />
                 {/* <Text style={styles.cardText}>Component 3</Text> */}
@@ -366,7 +356,7 @@ const Home = ({ navigation, route }) => {
                 style={styles.card}
                 onPress={() => handleCardPress4('CompletedEvents')}>
                 <Image
-                  source={isDarkMode ? require('../assets/image/cards/9.jpg') : require('../assets/image/cards/10.jpg')}
+                  source={isDarkMode ? require('../assets/image/editimg/11.jpg') : require('../assets/image/editimg/12.jpg')}
                   style={styles.card}
                 />
                 {/* <Text style={styles.cardText}>Component 4</Text> */}

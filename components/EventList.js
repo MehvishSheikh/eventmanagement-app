@@ -688,7 +688,7 @@ const EventList = ({ route }) => {
       {/* <Text style={styles.title}>Event List - {user.email_user}</Text> */}
       <TouchableOpacity style={styles.profileImageContainer}>
   <Image
-     source={isDarkMode ? require('../assets/image/cards/5.jpg') : require('../assets/image/cards/6.jpg')}
+     source={isDarkMode ? require('../assets/image/cards/11.jpg') : require('../assets/image/cards/12.jpg')}
     style={styles.profileImage}
   />
 </TouchableOpacity>

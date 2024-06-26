@@ -321,7 +321,7 @@ const EventDetails = ({ route, navigation }) => {
   const [isCompleted, setIsCompleted] = useState(event.completed);
 
   // Log event object to verify its structure
-  console.log('Event object:', event);
+  // console.log('Event object:', event);
 
   useEffect(() => {
     const intervalId = setInterval(() => {

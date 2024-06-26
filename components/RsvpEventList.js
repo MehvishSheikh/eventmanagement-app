@@ -36,6 +36,7 @@ const RsvpEventList = ({ route }) => {
   }
 
   return (
+    
     <View style={[styles.container, { backgroundColor: isDarkMode ? '#000' : '#f8f8f8' }]}>
   <TouchableOpacity style={styles.profileImageContainer}>
   <Image

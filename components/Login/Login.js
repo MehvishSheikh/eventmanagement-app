@@ -11,26 +11,22 @@ const Login = ({ navigation }) => {
 
   const handleLogin = async () => {
     try {
-     
       const response = await axios.post('https://tumor-app-server.vercel.app/api/login', {
         user_name,
         user_password
       });
 
-      
       if (response.data.success) {
-        navigation.navigate('Home', { user: response.data });
+        // Navigate to Home and pass user info
+        navigation.navigate('Home', { user: { ...response.data, user_name } });
       } else {
-        
         setError('Invalid username or password');
       }
     } catch (error) {
-   
       console.error('Error logging in:', error);
       setError('An error occurred while logging in');
     }
   };
-
   return (
     <ScrollView contentContainerStyle={[styles.container, { backgroundColor: isDarkMode ? '#333' : '#fff' }]}>
       <Text style={[styles.title, { color: isDarkMode ? '#fff' : '#000' }]}> User Login</Text>
