@@ -71,10 +71,10 @@ const Settings = ({ navigation }) => {
 
   return (
     <ScrollView style={[styles.container, isDarkMode && styles.darkContainer]}>
-      <Text style={[styles.title, isDarkMode && styles.darkTitle]}>Settings</Text>
+      {/* <Text style={[styles.title, isDarkMode && styles.darkTitle]}>Change Your Password</Text> */}
 
       <View style={styles.userNameContainer}>
-        <Text style={[styles.userName, isDarkMode && styles.darkUserName]}>{user.user_name}</Text>
+        <Text style={[styles.userName, isDarkMode && styles.darkUserName]}>Change Your Password {user.user_name}</Text>
         <TouchableOpacity onPress={() => navigation.navigate('UserEdit', { user_name: user.user_name })}>
           <Ionicons name="edit-outline" size={24} color={isDarkMode ? "#ccc" : "#333"} />
         </TouchableOpacity>

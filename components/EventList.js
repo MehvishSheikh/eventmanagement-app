@@ -571,12 +571,13 @@
 // export default EventList;
 
 import React, { useState, useEffect } from 'react';
-import { View, Text, ActivityIndicator, StyleSheet, TouchableOpacity, Modal, ScrollView } from 'react-native';
+import { View, Text, ActivityIndicator, StyleSheet, TouchableOpacity, Modal, ScrollView, Image } from 'react-native';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 import { FontAwesome } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { useTheme } from './ThemeContext';
 
 const EventList = ({ route }) => {
   const { user } = route.params;
@@ -589,7 +590,7 @@ const EventList = ({ route }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [filterType, setFilterType] = useState('');
   const navigation = useNavigation();
-  const isDarkMode = false;
+  const { isDarkMode } = useTheme();
 
   const fetchEvents = async (email) => {
     try {
@@ -683,10 +684,16 @@ const EventList = ({ route }) => {
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Event List - {user.email_user}</Text>
+    <View style={[styles.container, { backgroundColor: isDarkMode ? '#000' : '#f8f8f8' }]}>
+      {/* <Text style={styles.title}>Event List - {user.email_user}</Text> */}
+      <TouchableOpacity style={styles.profileImageContainer}>
+  <Image
+     source={isDarkMode ? require('../assets/image/cards/5.jpg') : require('../assets/image/cards/6.jpg')}
+    style={styles.profileImage}
+  />
+</TouchableOpacity>
 
-      <TouchableOpacity style={styles.filterButton} onPress={() => setShowFilterModal(true)}>
+      <TouchableOpacity style={[styles.filterButton, { backgroundColor: isDarkMode ? '#702963' : '#5353c6' }]} onPress={() => setShowFilterModal(true)}>
         <Text style={styles.filterButtonText}>Filter</Text>
       </TouchableOpacity>
 
@@ -738,8 +745,8 @@ const EventList = ({ route }) => {
         />
       )}
 
-      <ScrollView style={styles.tableContainer}>
-        <View style={styles.tableHeader}>
+      <ScrollView style={[styles.tableContainer, { backgroundColor: isDarkMode ? '#2b2b2a' : '#f8f8f8' }]}>
+        <View style={[styles.tableHeader, { backgroundColor: isDarkMode ? '#702963' : '#5353c6' }]}>
           <Text style={styles.headerCell}>Name</Text>
           <Text style={styles.headerCell}>Date</Text>
           <Text style={styles.headerCell}>Time</Text>
@@ -747,9 +754,9 @@ const EventList = ({ route }) => {
         </View>
         {filteredEvents.map((item) => (
           <View key={item._id} style={styles.row}>
-            <Text style={styles.cell}>{item.name}</Text>
-            <Text style={styles.cell}>{item.date}</Text>
-            <Text style={styles.cell}>{item.time}</Text>
+            <Text style={[styles.cell , {color: isDarkMode ? '#fff' : '#000'}]}>{item.name}</Text>
+            <Text style={[styles.cell , {color: isDarkMode ? '#fff' : '#000'}]}>{item.date}</Text>
+            <Text style={[styles.cell , {color: isDarkMode ? '#fff' : '#000'}]}>{item.time}</Text>
             <TouchableOpacity
               style={styles.detailsButton}
               onPress={() => navigation.navigate('EventDetails', { event: item })}
@@ -773,6 +780,16 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 10,
+  },
+  profileImageContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 20,
+  },
+  profileImage: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
   },
   filterButton: {
     backgroundColor: '#007bff',
@@ -849,7 +866,7 @@ const styles = StyleSheet.create({
   tableHeader: {
     flexDirection: 'row',
     paddingVertical: 8,
-    backgroundColor: '#007bff',
+    // backgroundColor: '#007bff',
   },
   headerCell: {
     flex: 1,
@@ -867,7 +884,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 8,
     textAlign: 'center',
-    fontSize: 12,
+    fontSize: 15,
   },
   detailsButton: {
     paddingVertical: 8,

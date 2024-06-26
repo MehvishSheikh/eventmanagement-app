@@ -287,7 +287,7 @@ const Home = ({ navigation, route }) => {
        source={isDarkMode ? require('../assets/image/darkbg2.jpg') : require('../assets/image/lightbg.png')}  
       style={styles.backgroundImage}
     >
-      <SidebarIcon onPress={() => navigation.navigate('Sidebar')} />
+      <SidebarIcon onPress={() => navigation.navigate('Sidebar',  { user_name: userInfo.user_name })} />
       <View style={styles.contentContainer}>
         <TouchableOpacity style={styles.userContainer} onPress={handleEditUser}>
           <Image source={userPhoto} style={styles.userPhoto} />
@@ -328,6 +328,9 @@ const Home = ({ navigation, route }) => {
       <UpcomingEvents email={userInfo ? userInfo.email_user : null} />
       {/* Other components */}
     </View>
+    <TouchableOpacity style={[styles.neweventbutton, { backgroundColor: isDarkMode ? '#f2e5ae' : '#5353c6' }]} onPress={handleTryNow}>
+          <Text style={[styles.buttonText, {color: isDarkMode ? '#000' : '#fff'  }]}>Create a New Event</Text>
+        </TouchableOpacity>
 <View style={styles.cardsContainer}>
             <View style={styles.row}>
               <TouchableOpacity
@@ -370,9 +373,7 @@ const Home = ({ navigation, route }) => {
               </TouchableOpacity>
             </View>
           </View>
-        <TouchableOpacity style={styles.uploadButton} onPress={handleTryNow}>
-          <Text style={styles.buttonText}>Create a New Event</Text>
-        </TouchableOpacity>
+       
 
         <View style={styles.infoContainer}>
           {/* <Text
@@ -436,6 +437,14 @@ const styles = StyleSheet.create({
   contentContainer: {
     alignItems: 'center',
     padding: 20,
+  },
+  neweventbutton: {
+    width: 220,
+    height: 44,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 40,
+    marginBottom: 10,
   },
   image: {
     width: 270,

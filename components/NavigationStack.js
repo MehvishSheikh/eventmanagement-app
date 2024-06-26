@@ -126,7 +126,7 @@ const NavigationStack = () => {
         <Stack.Screen
           name="CompletedEvents"
           component={CompletedEvents}
-          options={{ title: 'UserEdit' }}
+          options={{ title: 'Missed Events' }}
         />
 
         

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, ActivityIndicator, StyleSheet, TouchableOpacity, Modal, ScrollView } from 'react-native';
+import { View, Text, ActivityIndicator, StyleSheet, TouchableOpacity, Modal, ScrollView, Image } from 'react-native';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 import { FontAwesome } from '@expo/vector-icons';
@@ -96,9 +96,16 @@ const EventDisplay = ({ route }) => {
     
     <View style={[styles.container, { backgroundColor: isDarkMode ? '#000' : '#f8f8f8' }]}>
 
-      <Text style={[styles.title, { color: isDarkMode ? '#fff' : '#000' }]}>All Events for User {user.user_name}</Text>
+    <TouchableOpacity style={styles.profileImageContainer}>
+  <Image
+     source={isDarkMode ? require('../assets/image/cards/5.jpg') : require('../assets/image/cards/6.jpg')}
+    style={styles.profileImage}
+  />
+</TouchableOpacity>
 
-      <TouchableOpacity style={styles.filterButton} onPress={() => setShowFilterModal(true)}>
+      {/* <Text style={[styles.title, { color: isDarkMode ? '#fff' : '#000' }]}>All Events for User {user.user_name}</Text> */}
+
+      <TouchableOpacity style={[styles.filterButton, { backgroundColor: isDarkMode ? '#702963' : '#5353c6' }]} onPress={() => setShowFilterModal(true)}>
         <Text style={styles.filterButtonText}>Apply a Filter</Text>
       </TouchableOpacity>
 
@@ -164,6 +171,16 @@ const styles = StyleSheet.create({
     padding: 10,
     // backgroundColor: '#f8f8f8',
     margingTop: 50,
+  },
+  profileImageContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 20,
+  },
+  profileImage: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
   },
   loadingContainer: {
     flex: 1,

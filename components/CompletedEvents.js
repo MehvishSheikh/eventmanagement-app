@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, ActivityIndicator, StyleSheet } from 'react-native';
+import { View, Text, FlatList, ActivityIndicator, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import axios from 'axios';
+import { useTheme } from './ThemeContext';
 
 const CompletedEventList = ({ route }) => {
   const { user } = route.params; 
   const [loading, setLoading] = useState(true);
   const [events, setEvents] = useState([]);
+  const { isDarkMode } = useTheme(); 
 
   const fetchCompletedEvents = async (email) => {
     try {
@@ -34,8 +36,15 @@ const CompletedEventList = ({ route }) => {
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Completed Events for {user.email_user}</Text>
+    <View style={[styles.container, { backgroundColor: isDarkMode ? '#000' : '#f8f8f8' }]}>
+       <TouchableOpacity style={styles.profileImageContainer}>
+  <Image
+    source={isDarkMode ? require('../assets/image/cards/9.jpg') : require('../assets/image/cards/10.jpg')}
+    style={styles.profileImage}
+  />
+</TouchableOpacity>
+
+      {/* <Text style={styles.title}>Completed Events for {user.email_user}</Text> */}
       {events.length === 0 ? (
         <Text style={styles.noEventsText}>No Completed events found.</Text>
       ) : (
@@ -43,7 +52,7 @@ const CompletedEventList = ({ route }) => {
           data={events}
           keyExtractor={(item) => item._id}
           renderItem={({ item }) => (
-            <View style={styles.eventItem}>
+            <View style={styles.eventContainer}>
               <Text style={styles.eventName}>{item.name}</Text>
               <Text>Date: {item.date}</Text>
               <Text>Time: {item.time}</Text>
@@ -60,24 +69,107 @@ const CompletedEventList = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
-    backgroundColor: '#f8f8f8',
+    padding: 10,
+    // backgroundColor: '#f8f8f8',
+    margingTop: 50,
+  },
+  profileImageContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 20,
+  },
+  profileImage: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   title: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: 20,
+    marginBottom: 10,
+    marginTop: 30,
+    alignSelf: 'center',
   },
-  noEventsText: {
-    fontSize: 18,
-    textAlign: 'center',
+  filterButton: {
+    backgroundColor: '#007bff',
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderRadius: 5,
+    alignItems: 'center',
+    marginBottom: 10,
+    marginTop: 30,
   },
-  eventItem: {
+  filterButtonText: {
+    color: '#fff',
+    fontSize: 14,
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
     backgroundColor: '#fff',
+    marginHorizontal: 20,
     padding: 20,
-    marginVertical: 10,
     borderRadius: 10,
+  },
+  modalCloseButton: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+  },
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  modalOption: {
+    paddingVertical: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+  },
+  modalOptionText: {
+    fontSize: 14,
+  },
+  applyFilterButton: {
+    backgroundColor: '#007bff',
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderRadius: 5,
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  applyFilterButtonText: {
+    color: '#fff',
+    fontSize: 14,
+  },
+  clearFilterButton: {
+    backgroundColor: '#dc3545',
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderRadius: 5,
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  clearFilterButtonText: {
+    color: '#fff',
+    fontSize: 14,
+  },
+  eventsContainer: {
+    flex: 1,
+    marginTop: 10,
+  },
+  eventContainer: {
+    backgroundColor: '#e0f7fa',
+    borderRadius: 10,
+    padding: 15,
+    marginVertical: 10,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -88,9 +180,25 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   eventName: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
-    marginBottom: 10,
+    color: '#00796b',
+    marginBottom: 5,
+  },
+  eventDate: {
+    fontSize: 14,
+    color: '#00796b',
+    marginBottom: 5,
+  },
+  eventTime: {
+    fontSize: 14,
+    color: '#00796b',
+    marginBottom: 5,
+  },
+  eventLocation: {
+    fontSize: 14,
+    color: '#00796b',
+
   },
 });
 

@@ -21,8 +21,6 @@ import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from './ThemeContext';
 import { useNavigation } from '@react-navigation/native';
 
-
-
 const SidebarIcon = ({ onPress }) => {
   const { isDarkMode, toggleTheme } = useTheme();
   const navigation = useNavigation();
@@ -33,7 +31,7 @@ const SidebarIcon = ({ onPress }) => {
         <Ionicons name="menu-outline" size={35} color={isDarkMode ? '#fff' : '#000'} />
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate('Settings')} style={styles.themeButton}>
-        <Ionicons name={isDarkMode ? "settings" : "settings"} size={30} color={isDarkMode ? '#fff' : '#000'} />
+      <Ionicons name={isDarkMode ? "settings" : "settings"} size={30} color={isDarkMode ? '#fff' : '#000'} />
       </TouchableOpacity>
     </View>
   );

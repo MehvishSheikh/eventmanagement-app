@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, ActivityIndicator, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, ActivityIndicator, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 
@@ -133,12 +133,13 @@ const UpcomingEvents = ({ email }) => {
   }
 
   return (
+    <ImageBackground source={require('../../assets/image/cardbg.jpg')} style={styles.container}>
     <View style={styles.container}>
-      <Text style={styles.eventCountText}>Upcoming Events: {eventCount}</Text>
+      <Text style={styles.eventCountText}>{eventCount} Upcoming Events </Text>
       <View style={styles.eventContainer}>
       <Text style={styles.countdownText}>Starts in: {countdown}</Text>
         <Text style={styles.eventTitle}>{upcomingEvent.name}</Text>
-        <Text style={styles.eventDate}>{upcomingEvent.date} at {upcomingEvent.time}</Text>
+        {/* <Text style={styles.eventDate}>{upcomingEvent.date} at {upcomingEvent.time}</Text> */}
         
         <TouchableOpacity
           style={styles.detailsButton}
@@ -148,14 +149,24 @@ const UpcomingEvents = ({ email }) => {
         </TouchableOpacity>
       </View>
     </View>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
+    background: {
+        // flex: 1,
+        // resizeMode: 'cover',
+        
+      },
   container: {
     padding: 10,
-    backgroundColor: '#f8f8f8',
+    // backgroundColor: '#f8f8f8',
     alignItems: 'center',
+    width: 310,
+    height: 190,
+    borderRadius: 10,
+    
   },
   noEventText: {
     fontSize: 16,
@@ -167,19 +178,22 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   eventContainer: {
-    backgroundColor: '#fff',
+    // backgroundColor: '#fff',
     padding: 15,
-    borderRadius: 10,
+    borderRadius: 20,
     shadowColor: '#000',
     shadowOpacity: 0.1,
     shadowRadius: 10,
     shadowOffset: { width: 0, height: 5 },
-    alignItems: 'center',
+    // alignItems: 'right',
+    marginLeft: 78,
+
   },
   eventTitle: {
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 5,
+    color: '#007bff',
   },
   eventDate: {
     fontSize: 16,
