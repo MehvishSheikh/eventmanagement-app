@@ -21,6 +21,7 @@ import EditEvent from './EditEvent'
 import RsvpEventList from './RsvpEventList'
 import CompletedEvents from './CompletedEvents';
 import EventDisplay from './EventDisplay';
+import EventMap from './Maps/EventMap';
 const Stack = createStackNavigator();
 
 const NavigationStack = () => {
@@ -127,6 +128,11 @@ const NavigationStack = () => {
           name="CompletedEvents"
           component={CompletedEvents}
           options={{ title: 'Missed Events' }}
+        />
+          <Stack.Screen
+          name="EventMap"
+          component={EventMap}
+          options={{ title: 'Event Loaction' }}
         />
 
         

@@ -328,7 +328,7 @@ const Home = ({ navigation, route }) => {
       <UpcomingEvents email={userInfo ? userInfo.email_user : null} />
       {/* Other components */}
     </View>
-    <TouchableOpacity style={[styles.neweventbutton, { backgroundColor: isDarkMode ? '#f2e5ae' : '#5353c6' }]} onPress={handleTryNow}>
+    <TouchableOpacity style={[styles.neweventbutton, { backgroundColor: isDarkMode ? '#702963' : '#5353c6' }]} onPress={handleTryNow}>
           <Text style={[styles.buttonText, {color: isDarkMode ? '#000' : '#fff'  }]}>Create a New Event</Text>
         </TouchableOpacity>
 <View style={styles.cardsContainer}>

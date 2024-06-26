@@ -126,9 +126,11 @@ const UpcomingEvents = ({ email }) => {
 
   if (!upcomingEvent) {
     return (
-      <View style={styles.container}>
+      <ImageBackground source={require('../../assets/image/noeventsbg.jpg')} style={styles.noeventcontainer}>
+      <View style={styles.noeventcontainer}>
         <Text style={styles.noEventText}>No upcoming events</Text>
       </View>
+       </ImageBackground>
     );
   }
 
@@ -159,6 +161,16 @@ const styles = StyleSheet.create({
         // resizeMode: 'cover',
         
       },
+      noeventcontainer: {
+      width: 200,
+      height: 40,
+      width: 220,
+      height: 40,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: 40,
+      marginBottom: 10,
+      },
   container: {
     padding: 10,
     // backgroundColor: '#f8f8f8',
@@ -170,7 +182,9 @@ const styles = StyleSheet.create({
   },
   noEventText: {
     fontSize: 16,
-    color: '#666',
+    color: '#000',
+    fontWeight: 'bold',
+    
   },
   eventCountText: {
     fontSize: 18,

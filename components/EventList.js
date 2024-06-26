@@ -761,7 +761,7 @@ const EventList = ({ route }) => {
               style={styles.detailsButton}
               onPress={() => navigation.navigate('EventDetails', { event: item })}
             >
-              <Ionicons name="eye-outline" size={24} color={isDarkMode ? '#fff' : '#000'} />
+              <Ionicons name="pencil" size={24} color={isDarkMode ? '#fff' : '#000'} />
             </TouchableOpacity>
           </View>
         ))}
