@@ -242,7 +242,7 @@ const EventLocationList = ({ navigation,route }) => {
 
   const fetchCompletedEvents = async (email) => {
     try {
-      const response = await axios.get(`https://tumor-app-server.vercel.app/user/${email}/events/completed`);
+      const response = await axios.get(`https://tumor-app-server.vercel.app/events/${email}`);
       if (response.status === 200) {
         setEvents(response.data);
       }
@@ -270,14 +270,14 @@ const EventLocationList = ({ navigation,route }) => {
     <View style={[styles.container, { backgroundColor: isDarkMode ? '#000' : '#f8f8f8' }]}>
        <TouchableOpacity style={styles.profileImageContainer}>
   <Image
-    source={isDarkMode ? require('../assets/image/cards/9.jpg') : require('../assets/image/cards/10.jpg')}
+    source={isDarkMode ? require('../assets/image/12.jpg') : require('../assets/image/13.jpg')}
     style={styles.profileImage}
   />
 </TouchableOpacity>
 
       {/* <Text style={styles.title}>Completed Events for {user.email_user}</Text> */}
       {events.length === 0 ? (
-        <Text style={styles.noEventsText}>No Completed events found.</Text>
+        <Text style={styles.noEventsText}>No events found.</Text>
       ) : (
         <FlatList
         data={events}
@@ -285,17 +285,14 @@ const EventLocationList = ({ navigation,route }) => {
         renderItem={({ item }) => (
           <View style={styles.eventContainer}>
             <View style={styles.detailsContainer}>
-              <Text style={styles.eventName}>{item.name}</Text>
-              <Text>Date: {item.date}</Text>
-              <Text>Time: {item.time}</Text>
-              <Text>Location: {item.location}</Text>
-              <Text>Description: {item.description}</Text>
+              <Text style={styles.eventName}>{item.name} | Location: {item.location}</Text>
+              <Text style={styles.eventDateTime}>Date: {item.date} at {item.time}</Text>
             </View>
             <View style={styles.iconContainer}>
             <Ionicons
               name="location"
-              size={30}
-              color="#007bff"
+              size={40}
+              color="red"
               style={styles.icon}
               onPress={() => navigation.navigate('EventMap', { location: item.location })}
             />
@@ -329,7 +326,7 @@ const styles = StyleSheet.create({
   },
   iconContainer: {
     flexDirection: 'row',
-    marginLeft: 280,
+    marginLeft: 270,
     gap:230,
   },
   profileImage: {

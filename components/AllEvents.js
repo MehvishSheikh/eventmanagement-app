@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useTheme } from './ThemeContext';
 import { useNavigation } from '@react-navigation/native'; // Import useNavigation
 
-const RsvpEventList = ({ route }) => {
+const AllEvents = ({ route }) => {
   const { user } = route.params; 
   const [loading, setLoading] = useState(true);
   const [events, setEvents] = useState([]);
@@ -13,7 +13,7 @@ const RsvpEventList = ({ route }) => {
 
   const fetchRsvpEvents = async (email) => {
     try {
-      const response = await axios.get(`https://tumor-app-server.vercel.app/user/${email}/events/rsvp`);
+      const response = await axios.get(`https://tumor-app-server.vercel.app/events/${email}`);
       if (response.status === 200) {
         setEvents(response.data);
       }
@@ -205,4 +205,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RsvpEventList;
+export default AllEvents;

@@ -463,7 +463,8 @@ const styles = StyleSheet.create({
   eventcontainer: {
     // flex: 1,
     padding: 10,
-    borderRadius: 5,
+    borderRadius: 50,
+    marginBottom:10,
   },
   buttonText: {
     color: '#fff',

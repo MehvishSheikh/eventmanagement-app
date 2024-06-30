@@ -597,8 +597,8 @@ const EventList = ({ route }) => {
       const response = await axios.get(`https://tumor-app-server.vercel.app/events/${email}`);
       if (response.status === 200) {
         const incompleteEvents = response.data.filter(event => !event.completed);
-        setEvents(incompleteEvents);
-        setFilteredEvents(incompleteEvents);
+        setEvents(response.data);
+        setFilteredEvents(response.data);
       }
     } catch (error) {
       console.error('Error fetching events:', error);
@@ -635,13 +635,13 @@ const EventList = ({ route }) => {
       filtered.sort((a, b) => a.location.localeCompare(b.location));
     } else if (filterBy === 'rsvp') {
       filtered = events.filter(event => event.rsvp);
+    } else if (filterBy === 'completed') {
+      filtered = events.filter(event => event.completed);
     }
   
     setFilteredEvents(filtered);
     setShowFilterModal(false);
   };
-  
-  
 
   const clearFilter = () => {
     setFilteredEvents(events);
@@ -659,8 +659,10 @@ const EventList = ({ route }) => {
         const filtered = events.filter(event => event.date.startsWith(selectedMonth));
         setFilteredEvents(filtered);
       }
+      setShowFilterModal(false);
     } else {
       setShowDatePicker(false);
+      setShowFilterModal(false);
     }
   };
 
@@ -687,11 +689,11 @@ const EventList = ({ route }) => {
     <View style={[styles.container, { backgroundColor: isDarkMode ? '#000' : '#f8f8f8' }]}>
       {/* <Text style={styles.title}>Event List - {user.email_user}</Text> */}
       <TouchableOpacity style={styles.profileImageContainer}>
-  <Image
-     source={isDarkMode ? require('../assets/image/cards/11.jpg') : require('../assets/image/cards/12.jpg')}
-    style={styles.profileImage}
-  />
-</TouchableOpacity>
+        <Image
+          source={isDarkMode ? require('../assets/image/cards/11.jpg') : require('../assets/image/cards/12.jpg')}
+          style={styles.profileImage}
+        />
+      </TouchableOpacity>
 
       <TouchableOpacity style={[styles.filterButton, { backgroundColor: isDarkMode ? '#702963' : '#5353c6' }]} onPress={() => setShowFilterModal(true)}>
         <Text style={styles.filterButtonText}>Filter</Text>
@@ -717,6 +719,9 @@ const EventList = ({ route }) => {
             </TouchableOpacity>
             <TouchableOpacity style={styles.modalOption} onPress={() => setFilterBy('rsvp')}>
               <Text style={styles.modalOptionText}>RSVP Events</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.modalOption} onPress={() => setFilterBy('completed')}>
+              <Text style={styles.modalOptionText}>Completed Events</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.modalOption} onPress={() => {
               setFilterType('month');
@@ -894,6 +899,7 @@ const styles = StyleSheet.create({
 });
 
 export default EventList;
+
 
 
 

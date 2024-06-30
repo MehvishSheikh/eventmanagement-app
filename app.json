@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "mri-service-app",
+    "name": "Event Manager",
     "slug": "snack-07940af1-c82b-4168-b986-fa6ade54c873",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -21,10 +21,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.sahaji2003.snack07940af1c82b4168b986fa6ade54c873"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "06ca1133-1995-46e7-82f2-ebd150e28937"
+      }
     }
   }
 }

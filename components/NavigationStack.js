@@ -3,15 +3,15 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { useTheme } from './ThemeContext';
 import { UserProvider } from './UserContext'; // Assuming you have a ThemeContext for managing dark mode
 import Home from './Home';
-import Ecolense from './Ecolense';
+
 import EntryLoginPage from './Login/EntryLoginPage';
 import SignUp from './Login/SignUp';
 import Login from './Login/Login';
-import TumorList from './TumorList';
+
 import Sidebar from './Sidebar';
 import SidebarIcon from './SidebarIcon';
-import Notifications from './Notifications';
-import Campaigns from './Campaigns';
+
+
 import Settings from './Settings';
 import UserEdit from './UserEdit';
 import EventForm from './EventForm';
@@ -64,46 +64,46 @@ const NavigationStack = () => {
         <Stack.Screen
           name="EventForm"
           component={EventForm}
-          options={{ title: 'EventForm' }}
+          options={{ title: 'Event Form' }}
         />
 
         <Stack.Screen
           name="EventList"
           component={EventList}
-          options={{ title: 'EventList' }}
+          options={{ title: 'Event List' }}
         />
 
          <Stack.Screen
           name="EventDetails"
           component={EventDetails}
-          options={{ title: 'EventDetails' }}
+          options={{ title: 'Event Details' }}
         />
 
         <Stack.Screen
           name="EventDisplay"
           component={EventDisplay}
-          options={{ title: 'EventDisplay' }}
+          options={{ title: 'All Events' }}
         />
         <Stack.Screen
           name="EventLocationList"
           component={EventLocationList}
-          options={{ title: 'EventLocationList' }}
+          options={{ title: 'Event Location' }}
         />
         <Stack.Screen
           name="EventEditList"
           component={EventEditList}
-          options={{ title: 'EventEditList' }}
+          options={{ title: 'Event Edit' }}
         />
 
         <Stack.Screen
           name="EditEvent"
           component={EditEvent}
-          options={{ title: 'EditEvent' }}
+          options={{ title: 'Edit Event' }}
         />
         <Stack.Screen
           name="RsvpEventList"
           component={RsvpEventList}
-          options={{ title: 'RsvpEventList' }}
+          options={{ title: 'Rsvp Events' }}
         />
         <Stack.Screen
           name="Sidebar"
@@ -115,16 +115,7 @@ const NavigationStack = () => {
           component={SidebarIcon}
           options={{ title: 'Sidebar Icon' }}
         />
-        <Stack.Screen
-          name="Campaigns"
-          component={Campaigns}
-          options={{ title: 'Campaigns' }}
-        />
-        <Stack.Screen
-          name="Notifications"
-          component={Notifications}
-          options={{ title: 'Notifications' }}
-        />
+  
         <Stack.Screen
           name="Settings"
           component={Settings}
@@ -134,7 +125,7 @@ const NavigationStack = () => {
         <Stack.Screen
           name="UserEdit"
           component={UserEdit}
-          options={{ title: 'UserEdit' }}
+          options={{ title: 'User Edit' }}
         />
         <Stack.Screen
           name="CompletedEvents"

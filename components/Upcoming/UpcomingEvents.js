@@ -159,6 +159,7 @@ const styles = StyleSheet.create({
     background: {
         // flex: 1,
         // resizeMode: 'cover',
+        borderRadius:20,
         
       },
       noeventcontainer: {
@@ -168,7 +169,7 @@ const styles = StyleSheet.create({
       height: 40,
       justifyContent: 'center',
       alignItems: 'center',
-      borderRadius: 40,
+      borderRadius: 20,
       marginBottom: 10,
       },
   container: {
@@ -177,7 +178,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: 310,
     height: 190,
-    borderRadius: 10,
+    borderRadius: 20,
     
   },
   noEventText: {

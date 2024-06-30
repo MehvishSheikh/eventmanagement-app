@@ -74,10 +74,13 @@ const Settings = ({ navigation }) => {
       {/* <Text style={[styles.title, isDarkMode && styles.darkTitle]}>Change Your Password</Text> */}
 
       <View style={styles.userNameContainer}>
-        <Text style={[styles.userName, isDarkMode && styles.darkUserName]}>Change Your Password {user.user_name}</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('UserEdit', { user_name: user.user_name })}>
-          <Ionicons name="edit-outline" size={24} color={isDarkMode ? "#ccc" : "#333"} />
+        <Text style={[styles.changeImageText, isDarkMode && styles.darkChangeImageText]}>Edit Your Profile </Text>
+        <TouchableOpacity style={[styles.changeImageText, isDarkMode && styles.darkChangeImageText]} onPress={() => navigation.navigate('UserEdit', { user_name: user.user_name })}>
+          <Ionicons name="pencil" size={24} color={isDarkMode ? "#ccc" : "#333"} />
         </TouchableOpacity>
+      </View>
+      <View style={styles.userNameContainer}>
+      <Text style={[styles.userName, isDarkMode && styles.darkUserName]}>User Name: {user.user_name} </Text>
       </View>
 
       <TouchableOpacity style={styles.profileImageContainer} onPress={handleProfileImageChange}>

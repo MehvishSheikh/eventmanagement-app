@@ -305,7 +305,7 @@
 
 
 import React, { useState, useEffect } from 'react';
-import { View, Text, Button, StyleSheet, ScrollView, Alert, Animated, ImageBackground } from 'react-native';
+import { View, Text, Button, StyleSheet, ScrollView, Alert, Animated, ImageBackground, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import { useTheme } from './ThemeContext'; // Assuming you have a ThemeContext for dark mode
@@ -331,7 +331,7 @@ const EventDetails = ({ route, navigation }) => {
 
       if (timeRemaining <= 0) {
         clearInterval(intervalId);
-        setCountdown('Event has started  Hurry Up !');
+        setCountdown('Event has started. Hurry Up!');
       } else {
         const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
         const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -364,8 +364,7 @@ const EventDetails = ({ route, navigation }) => {
       Alert.alert("Error", "Failed to delete event");
     }
   };
-   
-  
+
   const editEvent = () => {
     navigation.navigate('EditEvent', { event });
   };
@@ -386,6 +385,7 @@ const EventDetails = ({ route, navigation }) => {
   const viewMap = () => {
     navigation.navigate('EventMap', { location: event.location });
   };
+
   const completedEvent = async () => {
     try {
       const response = await axios.put(`https://tumor-app-server.vercel.app/events/${event._id}/completed`);
@@ -410,82 +410,74 @@ const EventDetails = ({ route, navigation }) => {
   return (
     <ScrollView contentContainerStyle={[styles.container, { backgroundColor: isDarkMode ? '#333' : '#fff' }]}>
       <View style={styles.mapButtonContainer}>
-          <Button title="Open Map" onPress={viewMap} color="#007bff" />
-        </View>
+        <TouchableOpacity style={styles.option} onPress={viewMap}>
+          <Ionicons name="map-outline" size={24} color={isDarkMode ? '#fff' : '#000'} />
+          <Text style={[styles.optionText, { color: isDarkMode ? '#fff' : '#000' }]}>Open Map</Text>
+        </TouchableOpacity>
+      </View>
       <Animated.View style={{ opacity: fadeAnim }}>
-      <View style={styles.buttonContainer}>
-          <Button title="Edit Event" onPress={editEvent} color="#2196f3" />
-          <Button title="Delete Event" onPress={deleteEvent} color="#2196f3" />
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity style={styles.option} onPress={editEvent}>
+            <Ionicons name="create-outline" size={24} color="#2196f3" />
+            <Text style={styles.optionText}>Edit Event</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.option} onPress={deleteEvent}>
+            <Ionicons name="trash-outline" size={24} color="#2196f3" />
+            <Text style={styles.optionText}>Delete Event</Text>
+          </TouchableOpacity>
         </View>
-      {!isRSVPed && (
+        {!isRSVPed && (
           <View style={styles.rsvpButtonContainer}>
-            <FontAwesome name="check-circle"  size={33} color="green" />
-           
-            <Button title="Mark as RSVP" onPress={rsvpEvent} color="green" />
+            <TouchableOpacity style={styles.option} onPress={rsvpEvent}>
+              <Ionicons name="checkmark-circle-outline" size={24} color="green" />
+              <Text style={styles.optionText}>RSVP</Text>
+            </TouchableOpacity>
           </View>
         )}
         {!isCompleted && (
           <View style={styles.completedButtonContainer}>
-            <FontAwesome name="check-square" size={24} color="#d32f2f" />
-            <Button title="Mark as Complete" onPress={completedEvent} color="#f44336" />
+            <TouchableOpacity style={styles.option} onPress={completedEvent}>
+              <Ionicons name="checkmark-done-outline" size={24} color="#f44336" />
+              <Text style={styles.optionText}>Mark as Complete</Text>
+            </TouchableOpacity>
           </View>
         )}
-        <View>
         <ImageBackground source={require('../assets/image/cardbg.jpg')} style={styles.countdownContainer}>
-        <View style={[styles.countdownContainer]}>
-          <Text style={[styles.countdown, { color: '#d32f2f' }]}>{countdown}</Text>
-          <Text style={[styles.countdown, { color:  '#1976d2' }]}>{event.name}</Text>
-          {isRSVPed && (
-            <View style={styles.statusContainer}>
-              <FontAwesome name="check-circle" size={33} color="green" />
-              <Text style={[styles.statusText, { color:'green' }]}>RSVPed</Text>
-            </View>
-          )}
-          {isCompleted && (
-            <View style={styles.statusContainer}>
-              <FontAwesome name="check-square" size={24} color="#d32f2f" />
-              <Text style={[styles.statusText, { color: '#d32f2f' }]}>Completed</Text>
-            </View>
-          )}
-        </View>
-        {/* <View style={[styles.countdownContainer]}>
-          <Text style={[styles.countdown, { color:  '#1976d2' }]}>{event.name}</Text>
-          {isRSVPed && (
-            <View style={styles.statusContainer}>
-              <FontAwesome name="check-circle" size={24} color="green" />
-              <Text style={[styles.statusText, { color: isDarkMode ? '#ccc' : 'green' }]}>RSVPed</Text>
-            </View>
-          )}
-          {isCompleted && (
-            <View style={styles.statusContainer}>
-              <FontAwesome name="check-circle" size={24} color="green" />
-              <Text style={[styles.statusText, { color: isDarkMode ? '#ccc' : 'blue' }]}>Completed</Text>
-            </View>
-          )}
-          </View> */}
-          </ImageBackground>
-        </View>
-      
+          <View style={[styles.countdownContainer]}>
+            <Text style={[styles.countdown, { color: '#d32f2f' }]}>{countdown}</Text>
+            <Text style={[styles.countdown, { color: '#1976d2' }]}>{event.name}</Text>
+            {isRSVPed && (
+              <View style={styles.statusContainer}>
+                <FontAwesome name="check-circle" size={33} color="green" />
+                <Text style={[styles.statusText, { color: 'green' }]}>RSVPed</Text>
+              </View>
+            )}
+            {isCompleted && (
+              <View style={styles.statusContainer}>
+                <FontAwesome name="check-square" size={24} color="#d32f2f" />
+                <Text style={[styles.statusText, { color: '#d32f2f' }]}>Completed</Text>
+              </View>
+            )}
+          </View>
+        </ImageBackground>
         <View style={[styles.detailContainer, { backgroundColor: isDarkMode ? '#222' : '#ffffff' }]}>
           <View style={styles.detailItem}>
-            <Ionicons name="calendar" size={24} color="#1976d2" />
+            <Ionicons name="calendar-outline" size={24} color="#1976d2" />
             <Text style={[styles.detailText, { color: isDarkMode ? '#ccc' : '#424242' }]}>Date: {event.date}</Text>
           </View>
           <View style={styles.detailItem}>
-            <Ionicons name="time" size={24} color="#1976d2" />
+            <Ionicons name="time-outline" size={24} color="#1976d2" />
             <Text style={[styles.detailText, { color: isDarkMode ? '#ccc' : '#424242' }]}>Time: {event.time}</Text>
           </View>
           <View style={styles.detailItem}>
-            <Ionicons name="location" size={24} color="#1976d2" />
+            <Ionicons name="location-outline" size={24} color="#1976d2" />
             <Text style={[styles.detailText, { color: isDarkMode ? '#ccc' : '#424242' }]}>Location: {event.location}</Text>
           </View>
           <View style={styles.detailItem}>
-            <Ionicons name="information-circle" size={24} color="#1976d2" />
+            <Ionicons name="information-circle-outline" size={24} color="#1976d2" />
             <Text style={[styles.detailText, { color: isDarkMode ? '#ccc' : '#424242' }]}>Description: {event.description}</Text>
           </View>
         </View>
-       
-       
       </Animated.View>
     </ScrollView>
   );
@@ -498,27 +490,22 @@ const styles = StyleSheet.create({
   },
   mapButtonContainer: {
     marginTop: 20,
-    marginLeft: 40,
-    // flexDirection: 'row',
-    justifyContent: 'space-around',
-    width: '100%',
-    marginTop: 20,
-    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 20,
   },
   countdownContainer: {
     padding: 15,
-    borderRadius: 50,
+    borderRadius: 10,
     marginBottom: 20,
     height: 180,
     width: 320,
+    justifyContent: 'center',
   },
   countdown: {
     fontSize: 25,
     fontWeight: 'bold',
     textAlign: 'center',
-    margingTop: 8,
-    paddingLeft: 70,
-    margingLeft: 100,
   },
   titleContainer: {
     padding: 15,
@@ -571,30 +558,29 @@ const styles = StyleSheet.create({
   },
   rsvpButtonContainer: {
     marginTop: 20,
-    marginLeft: 40,
-    // flexDirection: 'row',
-    justifyContent: 'space-around',
-    width: 250,
-    marginTop: 20,
-    flexDirection: 'row',
-    // justifyContent: 'space-around',
-    
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 20,
   },
   errorText: {
     fontSize: 18,
     color: 'red',
+    textAlign: 'center',
   },
   completedButtonContainer: {
     marginTop: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
     marginBottom: 20,
-    marginLeft: 50,
-    // flexDirection: 'row',
-    justifyContent: 'space-around',
-    width: 250,
-    
-    marginTop: 20,
+  },
+  option: {
     flexDirection: 'row',
-    borderRadius: 20,
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  optionText: {
+    marginLeft: 10,
+    fontSize: 18,
   },
 });
 

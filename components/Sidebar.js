@@ -43,16 +43,7 @@ const Sidebar = ({ navigation, route }) => {
       console.error('Error fetching user info:', error);
     }
   };
-  // const { user_name } = route.params;
-  // const [user, setUser] = useState({
-  //   user_name: '',
-  //   first_name: '',
-  //   last_name: '',
-  //   email_user: '',
-  //   phone_no: '',
-  //   user_role: '',
-  //   user_password: ''
-  // });
+
 
   return (
     <View style={[styles.container, { backgroundColor: isDarkMode ? '#333' : '#fff' }]}>
@@ -61,22 +52,19 @@ const Sidebar = ({ navigation, route }) => {
           <Ionicons name="home-outline" size={24} color={isDarkMode ? '#fff' : '#000'} />
           <Text style={[styles.optionText, { color: isDarkMode ? '#fff' : '#000' }]}>Home</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.option} onPress={() => navigation.navigate('Notifications')}>
+        {/* <TouchableOpacity style={styles.option} onPress={() => navigation.navigate('Notifications')}>
           <Ionicons name="notifications-outline" size={24} color={isDarkMode ? '#fff' : '#000'} />
           <Text style={[styles.optionText, { color: isDarkMode ? '#fff' : '#000' }]}>Notifications</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.option} onPress={() => navigation.navigate('Ecolense')}>
+        </TouchableOpacity> */}
+        {/* <TouchableOpacity style={styles.option} onPress={() => navigation.navigate('Ecolense')}>
           <Ionicons name="eye-outline" size={24} color={isDarkMode ? '#fff' : '#000'} />
           <Text style={[styles.optionText, { color: isDarkMode ? '#fff' : '#000' }]}>Actions</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.option} onPress={() => navigation.navigate('UserEdit', { user_name: userInfo.user_name })}>
+        </TouchableOpacity> */}
+        <TouchableOpacity style={styles.option} onPress={() => navigation.navigate('Settings')}>
           <Ionicons name="list-outline" size={24} color={isDarkMode ? '#fff' : '#000'} />
           <Text style={[styles.optionText, { color: isDarkMode ? '#fff' : '#000' }]}>Edit Profile</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.option} onPress={() => navigation.navigate('Campaigns')}>
-          <Ionicons name="megaphone-outline" size={24} color={isDarkMode ? '#fff' : '#000'} />
-          <Text style={[styles.optionText, { color: isDarkMode ? '#fff' : '#000' }]}>Campaigns</Text>
-        </TouchableOpacity>
+
         <TouchableOpacity style={styles.option} onPress={() => navigation.navigate('Settings')}>
           <Ionicons name="settings-outline" size={24} color={isDarkMode ? '#fff' : '#000'} />
           <Text style={[styles.optionText, { color: isDarkMode ? '#fff' : '#000' }]}>Settings</Text>

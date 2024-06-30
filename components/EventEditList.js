@@ -242,7 +242,7 @@ const EventEditList = ({ navigation ,route }) => {
 
   const fetchRsvpEvents = async (email) => {
     try {
-      const response = await axios.get(`https://tumor-app-server.vercel.app/user/${email}/events/rsvp`);
+      const response = await axios.get(`https://tumor-app-server.vercel.app/events/${email}`);
       if (response.status === 200) {
         setEvents(response.data);
       }
@@ -285,11 +285,8 @@ const EventEditList = ({ navigation ,route }) => {
         renderItem={({ item }) => (
           <View style={styles.eventContainer}>
             <View style={styles.detailsContainer}>
-              <Text style={styles.eventName}>{item.name}</Text>
-              <Text>Date: {item.date}</Text>
-              <Text>Time: {item.time}</Text>
-              <Text>Location: {item.location}</Text>
-              <Text>Description: {item.description}</Text>
+            <Text style={styles.eventName}>{item.name} | Location: {item.location}</Text>
+            <Text style={styles.eventDateTime}>Date: {item.date} at {item.time}</Text>
             </View>
             <View style={styles.iconContainer}>
             {/* <Ionicons
@@ -300,8 +297,8 @@ const EventEditList = ({ navigation ,route }) => {
               onPress={() => navigation.navigate('EventMap', { location: item.location })}
             /> */}
             <Ionicons
-              name="pencil-outline"
-              size={30}
+              name="pencil"
+              size={40}
               color="#007bff"
               style={styles.icon}
               onPress={() => navigation.navigate('EditEvent', { event: item })}
@@ -334,7 +331,7 @@ const styles = StyleSheet.create({
   },
   iconContainer: {
     flexDirection: 'row',
-    marginLeft: 280,
+    marginLeft: 270,
     gap:230,
   },
   loadingContainer: {

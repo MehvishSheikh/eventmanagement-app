@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, ScrollView, Platform, Alert } from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import React, { useState } from 'react';
+import { View, Text, TextInput, Button, StyleSheet, ScrollView, Alert } from 'react-native';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import axios from 'axios';
+import { useTheme } from './ThemeContext'; // Assuming you have a ThemeContext
 
 const EditEvent = ({ route, navigation }) => {
   const { event } = route.params;
+  const { isDarkMode } = useTheme();
 
   const [eventName, setEventName] = useState(event.name);
   const [eventLocation, setEventLocation] = useState(event.location);
@@ -12,19 +14,33 @@ const EditEvent = ({ route, navigation }) => {
   const [eventDate, setEventDate] = useState(new Date(event.date));
   const [eventTime, setEventTime] = useState(new Date(`${event.date}T${event.time}`));
 
-  const [showEventDatePicker, setShowEventDatePicker] = useState(false);
-  const [showEventTimePicker, setShowEventTimePicker] = useState(false);
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
 
-  const onChangeEventDate = (event, selectedDate) => {
-    const currentDate = selectedDate || eventDate;
-    setShowEventDatePicker(Platform.OS === 'ios');
-    setEventDate(currentDate);
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
   };
 
-  const onChangeEventTime = (event, selectedTime) => {
-    const currentTime = selectedTime || eventTime;
-    setShowEventTimePicker(Platform.OS === 'ios');
-    setEventTime(currentTime);
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
+
+  const handleConfirmDate = (selectedDate) => {
+    setEventDate(selectedDate);
+    hideDatePicker();
+  };
+
+  const showTimePicker = () => {
+    setTimePickerVisibility(true);
+  };
+
+  const hideTimePicker = () => {
+    setTimePickerVisibility(false);
+  };
+
+  const handleConfirmTime = (selectedTime) => {
+    setEventTime(selectedTime);
+    hideTimePicker();
   };
 
   const updateEvent = async () => {
@@ -54,51 +70,65 @@ const EditEvent = ({ route, navigation }) => {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.card}>
+    <ScrollView contentContainerStyle={[styles.container, { backgroundColor: isDarkMode ? '#000' : '#f8f8f8' }]}>
+      <View style={[styles.card, { backgroundColor: isDarkMode ? '#333' : '#fff' }]}>
         <View style={styles.title}>
-          <Text>Edit Event</Text>
+          <Text style={{ color: isDarkMode ? '#fff' : '#000' }}>Edit Event</Text>
         </View>
         <TextInput
           label="Event Name"
           value={eventName}
           onChangeText={setEventName}
-          style={styles.input}
+          style={[styles.input, { color: isDarkMode ? '#fff' : '#000', borderBottomColor: isDarkMode ? '#fff' : '#ccc' }]}
           placeholder="Enter Event Name"
+          placeholderTextColor={isDarkMode ? '#888' : '#ccc'}
         />
-        <Button title="Select Event Date" onPress={() => setShowEventDatePicker(true)} />
-        {showEventDatePicker && (
-          <DateTimePicker
-            value={eventDate}
-            mode="date"
-            display="default"
-            onChange={onChangeEventDate}
-          />
-        )}
-        <Button title="Select Event Time" onPress={() => setShowEventTimePicker(true)} />
-        {showEventTimePicker && (
-          <DateTimePicker
-            value={eventTime}
-            mode="time"
-            display="default"
-            onChange={onChangeEventTime}
-          />
-        )}
+        <Button
+          title="Select Event Date"
+          onPress={showDatePicker}
+          color={isDarkMode ? '#702963' : '#5353c6'}
+          style={styles.button}
+        />
+        <DateTimePickerModal
+          isVisible={isDatePickerVisible}
+          mode="date"
+          onConfirm={handleConfirmDate}
+          onCancel={hideDatePicker}
+        />
+        <Button
+          title="Select Event Time"
+          onPress={showTimePicker}
+          color={isDarkMode ? '#702963' : '#5353c6'}
+          style={styles.button}
+        />
+        <DateTimePickerModal
+          isVisible={isTimePickerVisible}
+          mode="time"
+          onConfirm={handleConfirmTime}
+          onCancel={hideTimePicker}
+        />
         <TextInput
           label="Event Location"
           value={eventLocation}
           onChangeText={setEventLocation}
-          style={styles.input}
+          style={[styles.input, { color: isDarkMode ? '#fff' : '#000', borderBottomColor: isDarkMode ? '#fff' : '#ccc' }]}
           placeholder="Enter Event Location"
+          placeholderTextColor={isDarkMode ? '#888' : '#ccc'}
         />
         <TextInput
           label="Event Description"
           value={eventDescription}
           onChangeText={setEventDescription}
-          style={styles.input}
+          style={[styles.input, { color: isDarkMode ? '#fff' : '#000', borderBottomColor: isDarkMode ? '#fff' : '#ccc' }]}
           placeholder="Enter Event Description"
+          placeholderTextColor={isDarkMode ? '#888' : '#ccc'}
         />
-        <Button title="Update Event" onPress={updateEvent} />
+        <Button
+          title="Update Event"
+          onPress={updateEvent}
+          color={isDarkMode ? '#702963' : '#5353c6'}
+          style={styles.button}
+        />
       </View>
     </ScrollView>
   );
@@ -112,9 +142,8 @@ const styles = StyleSheet.create({
   card: {
     margin: 20,
     padding: 10,
-    backgroundColor: '#FFFFFF',
     borderRadius: 5,
-    shadowColor: '#000000',
+    shadowColor: '#000',
     shadowOpacity: 0.2,
     shadowRadius: 2,
     elevation: 2,
@@ -128,7 +157,12 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     padding: 10,
     borderBottomWidth: 1,
-    borderBottomColor: '#CCCCCC',
+  },
+  button: {
+    marginVertical: 10,
+    padding: 20,
+    borderRadius: 5,
+    marginTop:20
   },
 });
 
